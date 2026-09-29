@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix - Report Issue</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card" style="max-width: 800px;">
+                    <h2 class="card-title" style="margin-bottom: 1.5rem;">Report a Maintenance Issue</h2>
+                    <form id="report-form">
+                        <div class="form-group"><label class="form-label">Issue Title</label><input type="text"
+                                class="form-control" id="title" required></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea
+                                class="form-control" id="description" required></textarea></div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group"><label class="form-label">Category</label><select
+                                    class="form-control" id="category" required></select></div>
+                            <div class="form-group"><label class="form-label">Priority Suggestion</label><select
+                                    class="form-control" id="priority">
+                                    <option>LOW</option>
+                                    <option>MEDIUM</option>
+                                    <option>HIGH</option>
+                                    <option>CRITICAL</option>
+                                </select></div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group"><label class="form-label">Building</label><input type="text"
+                                    class="form-control" id="building" required></div>
+                            <div class="form-group"><label class="form-label">Room/Area</label><input type="text"
+                                    class="form-control" id="room" required></div>
+                        </div>
+                        <div class="form-group"><label class="form-label">Photo/Video (Simulated)</label><input
+                                type="file" class="form-control" id="attachment"></div>
+                        <button type="submit" class="btn btn-primary">Submit Issue</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        App.init('USER');
+        const catSelect = document.getElementById('category');
+        Storage.getCategories().forEach(c => catSelect.innerHTML += `<option>${c}</option>`);
+
+        document.getElementById('report-form').onsubmit = (e) => {
+            e.preventDefault();
+            const user = Auth.getCurrentUser();
+            const newIssue = {
+                id: Utils.generateId(),
+                ref: Utils.generateRef(),
+                title: title.value, description: description.value,
+                category: category.value, building: building.value, room: room.value,
+                priority: Utils.suggestPriority(category.value, description.value),
+                status: 'SUBMITTED', reporterId: user.id, assignedWorkerId: null,
+                deadline: Date.now() + (48 * 3600000), createdAt: Date.now(),
+                history: [{ status: 'SUBMITTED', date: Date.now(), note: 'Issue submitted by user.' }]
+            };
+
+            const dup = Utils.checkDuplicate(newIssue);
+            if (dup) Utils.toast(`Warning: Possible duplicate of ${dup.ref}`, 'error');
+
+            const issues = Storage.getIssues();
+            issues.push(newIssue);
+            Storage.saveIssues(issues);
+
+            // Notify Admins
+            const notifs = Storage.getNotifications();
+            Storage.getUsers().filter(u => u.role === 'ADMIN').forEach(a => {
+                notifs.push({ id: Utils.generateId(), userId: a.id, message: `New issue reported: ${newIssue.ref}`, read: false, createdAt: Date.now() });
+            });
+            Storage.saveNotifications(notifs);
+
+            Utils.toast('Issue reported successfully!', 'success');
+            setTimeout(() => window.location.href = 'issue-details.html?id=' + newIssue.id, 1000);
+        };
+    </script>
+</body>
+
+</html>

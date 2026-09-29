@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">CampusFix</div>
+                <p class="auth-subtitle">Create your account</p>
+            </div>
+            <form id="register-form">
+                <div class="form-group"><label class="form-label">Full Name</label><input type="text"
+                        class="form-control" id="name" required></div>
+                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-control"
+                        id="email" required></div>
+                <div class="form-group"><label class="form-label">Password</label><input type="password"
+                        class="form-control" id="password" required></div>
+                <div class="form-group"><label class="form-label">Student/Staff ID</label><input type="text"
+                        class="form-control" id="studentId" required></div>
+                <div class="form-group"><label class="form-label">Department</label><input type="text"
+                        class="form-control" id="department" required></div>
+                <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-control"
+                        id="phone" required></div>
+                <button type="submit" class="btn btn-primary" style="width:100%">Register</button>
+            </form>
+            <div class="auth-footer">Already have an account? <a href="login.html">Login</a></div>
+        </div>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('register-form').onsubmit = (e) => {
+            e.preventDefault();
+            try {
+                const data = { name: name.value, email: email.value, password: password.value, studentId: studentId.value, department: department.value, phone: phone.value };
+                Auth.register(data);
+                Utils.toast('Registered! Please login.', 'success');
+                setTimeout(() => window.location.href = 'login.html', 1000);
+            } catch (err) { Utils.toast(err.message, 'error'); }
+        };
+    </script>
+</body>
+
+</html>

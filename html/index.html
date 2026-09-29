@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Report campus maintenance issues and follow repairs with CampusFix.">
+    <title>CampusFix - Campus Maintenance Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .landing {
+            --blue: #1d4ed8;
+            --blue-dark: #1e3a8a;
+            --blue-hover: #1e40af;
+            --blue-tint: #eff6ff;
+            --ink: #0f172a;
+            --muted: #475569;
+            --line: #dbe3ee;
+            --white: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            background: var(--white);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .landing a {
+            text-decoration: none;
+        }
+
+        .landing h1,
+        .landing h2,
+        .landing h3,
+        .landing p {
+            margin: 0;
+        }
+
+        /* Buttons */
+        .landing .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2.5rem;
+            padding: .55rem 1.15rem;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            font: inherit;
+            font-size: .9rem;
+            font-weight: 600;
+            line-height: 1.2;
+            cursor: pointer;
+            box-shadow: none;
+            transition: background-color .15s, border-color .15s, color .15s;
+        }
+
+        .landing .btn-primary {
+            color: var(--white);
+            background: var(--blue);
+            border-color: var(--blue);
+        }
+
+        .landing .btn-primary:hover {
+            background: var(--blue-hover);
+            border-color: var(--blue-hover);
+        }
+
+        .landing .btn-outline {
+            color: var(--blue);
+            background: var(--white);
+            border-color: var(--blue);
+        }
+
+        .landing .btn-outline:hover {
+            background: var(--blue-tint);
+        }
+
+        /* Header and navigation */
+        .landing-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .landing-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: min(1120px, calc(100% - 2rem));
+            min-height: 64px;
+            margin: auto;
+        }
+
+        .brand {
+            color: var(--blue-dark);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        .nav-links>a:not(.btn) {
+            color: var(--muted);
+            font-size: .9rem;
+            font-weight: 500;
+        }
+
+        .nav-links>a:not(.btn):hover {
+            color: var(--blue);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: .5rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            color: var(--ink);
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .menu-toggle:hover {
+            background: var(--blue-tint);
+        }
+
+        .menu-toggle svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5.5rem 1rem;
+            color: var(--white);
+            background: var(--blue);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+            align-items: center;
+            gap: 3.5rem;
+            width: min(1120px, 100%);
+            margin: auto;
+        }
+
+        .hero-image {
+            margin: 0;
+        }
+
+        .hero-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 4/ 3;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .hero h1 {
+            max-width: 700px;
+            margin-bottom: 1.1rem;
+            font-size: clamp(2.1rem, 4.5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -.02em;
+        }
+
+        .hero-copy {
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #dbeafe;
+            font-size: 1.1rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+        }
+
+        .landing .hero .btn-primary {
+            color: var(--blue-dark);
+            background: var(--white);
+            border-color: var(--white);
+        }
+
+        .landing .hero .btn-primary:hover {
+            background: var(--blue-tint);
+            border-color: var(--blue-tint);
+        }
+
+        .landing .hero .btn-outline {
+            color: var(--white);
+            background: transparent;
+            border-color: rgba(255, 255, 255, .7);
+        }
+
+        .landing .hero .btn-outline:hover {
+            background: rgba(255, 255, 255, .1);
+            border-color: var(--white);
+        }
+
+        /* Sections */
+        .section {
+            width: min(1120px, calc(100% - 2rem));
+            margin: auto;
+            padding: 4.5rem 0;
+        }
+
+        .section-heading {
+            max-width: 620px;
+            margin-bottom: 2.25rem;
+        }
+
+        .section-heading h2 {
+            margin-bottom: .6rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -.01em;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .step {
+            padding-top: 1.25rem;
+            border-top: 3px solid var(--blue);
+        }
+
+        .step h3 {
+            margin-bottom: .5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        /* Call to action */
+        .cta-wrap {
+            padding: 0 0 4.5rem;
+        }
+
+        .cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1.75rem 2rem;
+            background: var(--blue-tint);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+        }
+
+        .cta h2 {
+            margin-bottom: .25rem;
+            color: var(--blue-dark);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .cta p {
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        /* Footer */
+        .landing-footer {
+            border-top: 1px solid var(--line);
+            background: var(--white);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: min(1120px, calc(100% - 2rem));
+            min-height: 72px;
+            margin: auto;
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+        }
+
+        .footer-links a:hover {
+            color: var(--blue);
+        }
+
+        /* Focus */
+        .landing a:focus-visible,
+        .landing button:focus-visible {
+            outline: 3px solid #93c5fd;
+            outline-offset: 2px;
+        }
+
+        .landing .hero a:focus-visible {
+            outline-color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 760px) {
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 1.75rem;
+            }
+
+            .section {
+                padding: 3.5rem 0;
+            }
+
+            .cta-wrap {
+                padding-bottom: 3.5rem;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .landing-nav {
+                position: relative;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: calc(100% + 1px);
+                left: -1rem;
+                right: -1rem;
+                padding: 1rem;
+                align-items: stretch;
+                flex-direction: column;
+                gap: .75rem;
+                background: var(--white);
+                border-bottom: 1px solid var(--line);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links>a:not(.btn) {
+                padding: .5rem 0;
+            }
+
+            .nav-actions {
+                padding-top: .75rem;
+                border-top: 1px solid var(--line);
+            }
+
+            .nav-actions .btn {
+                flex: 1;
+            }
+
+            .cta {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                justify-content: center;
+                padding: 1rem 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="landing">
+    <header class="landing-header">
+        <nav class="landing-nav" aria-label="Main navigation">
+            <a class="brand" href="index.html">CampusFix</a>
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links"
+                aria-label="Open navigation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    aria-hidden="true">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="#how-it-works">How it works</a>
+                <div class="nav-actions">
+                    <a href="login.html" class="btn btn-outline">Log in</a>
+                    <a href="register.html" class="btn btn-primary">Get started</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div>
+                    <h1>Report an issue. Follow it through to repair.</h1>
+                    <p class="hero-copy">CampusFix helps students and staff report maintenance problems and gives
+                        campus teams a clear way to review, assign, and resolve them.</p>
+                    <div class="hero-actions">
+                        <a href="register.html" class="btn btn-primary">Report an issue</a>
+                        <a href="#how-it-works" class="btn btn-outline">How it works</a>
+                    </div>
+                </div>
+                <figure class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1482731215275-a1f151646268?auto=format&fit=crop&w=1000&q=80"
+                        alt="Maintenance worker on a ladder carrying out a repair" width="1000" height="750">
+                </figure>
+            </div>
+        </section>
+
+        <section class="section" id="how-it-works">
+            <div class="section-heading">
+                <h2>How CampusFix works</h2>
+                <p>Follow a clear process from the first report to a completed repair.</p>
+            </div>
+            <ol class="steps">
+                <li class="step">
+                    <h3>1. Report the issue</h3>
+                    <p>Describe the problem and where it happened. Include the details campus staff need to review it.
+                    </p>
+                </li>
+                <li class="step">
+                    <h3>2. Review and assign</h3>
+                    <p>An administrator reviews the report, sets its priority, and assigns it to a maintenance worker.
+                    </p>
+                </li>
+                <li class="step">
+                    <h3>3. Track the repair</h3>
+                    <p>Follow progress updates and confirm the repair when the work is complete.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section cta-wrap">
+            <div class="cta">
+                <div>
+                    <h2>Have a maintenance issue to report?</h2>
+                    <p>Create an account to submit and follow your report.</p>
+                </div>
+                <a href="register.html" class="btn btn-primary">Get started</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <div class="footer-inner">
+            <a class="brand" href="index.html">CampusFix</a>
+            <span>&copy; <span id="year"></span> CampusFix</span>
+            <div class="footer-links">
+                <a href="login.html">Log in</a>
+                <a href="register.html">Register</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', String(open));
+            menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        });
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation');
+        }));
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Issues - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Issues</h3>
+                        <a href="report.html" class="btn btn-primary btn-sm">+ Report New</a>
+                    </div>
+                    <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
+                        <input type="text" class="form-control" id="search" placeholder="Search..."
+                            style="max-width:250px;">
+                        <select class="form-control" id="f-status" style="width:auto;">
+                            <option value="">All Status</option>
+                            <option>SUBMITTED</option>
+                            <option>VERIFIED</option>
+                            <option>ASSIGNED</option>
+                            <option>IN_PROGRESS</option>
+                            <option>RESOLVED</option>
+                            <option>CLOSED</option>
+                            <option>REJECTED</option>
+                            <option>REOPENED</option>
+                        </select>
+                        <select class="form-control" id="f-priority" style="width:auto;">
+                            <option value="">All Priority</option>
+                            <option>LOW</option>
+                            <option>MEDIUM</option>
+                            <option>HIGH</option>
+                            <option>CRITICAL</option>
+                        </select>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ref</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>SLA</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="issues-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/issues.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/user.js"></script>
+    <script>UserModule.initIssues();</script>
+</body>
+
+</html>

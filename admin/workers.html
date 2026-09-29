@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workers - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card" style="margin-bottom:1.5rem;">
+                    <h3 class="card-title" style="margin-bottom:1rem;">Add Worker</h3>
+                    <form id="add-worker-form"
+                        style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:1rem;align-items:end;">
+                        <div class="form-group" style="margin:0"><label class="form-label">Name</label><input
+                                type="text" class="form-control" id="w-name" required></div>
+                        <div class="form-group" style="margin:0"><label class="form-label">Email</label><input
+                                type="email" class="form-control" id="w-email" required></div>
+                        <div class="form-group" style="margin:0"><label class="form-label">Specialization</label><select
+                                class="form-control" id="w-spec">
+                                <option>General</option>
+                                <option>Electrical</option>
+                                <option>Plumbing</option>
+                                <option>Carpentry</option>
+                                <option>HVAC</option>
+                                <option>IT/Network</option>
+                            </select></div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom:1rem;">All Workers</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Specialization</th>
+                                    <th>Status</th>
+                                    <th>Active Load</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="workers-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/issues.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>AdminModule.initWorkers();</script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix - Assigned Issues</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Assigned Issues</h3>
+                        <div style="display:flex; gap:0.5rem;">
+                            <select class="form-control" id="filter-status" style="width:auto">
+                                <option value="">All Status</option>
+                                <option>ASSIGNED</option>
+                                <option>IN_PROGRESS</option>
+                                <option>RESOLVED</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ref</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>SLA</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="issues-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        App.init('WORKER');
+        const worker = Auth.getCurrentUser();
+
+        function render() {
+            const statusFilter = document.getElementById('filter-status').value;
+            const issues = Storage.getIssues().filter(i => i.assignedWorkerId === worker.id && (!statusFilter || i.status === statusFilter));
+
+            document.getElementById('issues-body').innerHTML = issues.map(i => `
+                <tr>
+                    <td>${i.ref}</td>
+                    <td>${i.title}</td>
+                    <td>${i.category}</td>
+                    <td>${i.building} - ${i.room}</td>
+                    <td><span class="badge badge-${i.priority.toLowerCase()}">${i.priority}</span></td>
+                    <td><span class="badge badge-${i.status.toLowerCase().replace('_', '')}">${i.status}</span></td>
+                    <td><span class="badge badge-${Utils.getSLAStatus(i).toLowerCase().replace(' ', '')}">${Utils.getSLAStatus(i)}</span></td>
+                    <td><a href="issue-details.html?id=${i.id}" class="btn btn-sm btn-outline">View</a></td>
+                </tr>
+            `).join('') || '<tr><td colspan="8" class="empty-state">No issues assigned.</td></tr>';
+        }
+
+        document.getElementById('filter-status').onchange = render;
+        render();
+    </script>
+</body>
+
+</html>

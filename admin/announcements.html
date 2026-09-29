@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card" style="margin-bottom:1.5rem;">
+                    <h3 class="card-title" style="margin-bottom:1rem;">Create Announcement</h3>
+                    <form id="add-ann-form">
+                        <div class="form-group"><label class="form-label">Title</label><input type="text"
+                                class="form-control" id="ann-title" required></div>
+                        <div class="form-group"><label class="form-label">Content</label><textarea class="form-control"
+                                id="ann-content" required></textarea></div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+                            <div class="form-group"><label class="form-label">Affected Area</label><input type="text"
+                                    class="form-control" id="ann-area" placeholder="e.g. Science Block"></div>
+                            <div class="form-group"><label class="form-label">Start Date</label><input type="date"
+                                    class="form-control" id="ann-start" required></div>
+                            <div class="form-group"><label class="form-label">End Date</label><input type="date"
+                                    class="form-control" id="ann-end" required></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publish</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom:1rem;">All Announcements</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Area</th>
+                                    <th>Status</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ann-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>AdminModule.initAnnouncements();</script>
+</body>
+
+</html>

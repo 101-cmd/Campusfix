@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total</div>
+                        <div class="stat-value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Open</div>
+                        <div class="stat-value" id="stat-open">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Resolved</div>
+                        <div class="stat-value text-success" id="stat-resolved">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Closed</div>
+                        <div class="stat-value" id="stat-closed">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Overdue</div>
+                        <div class="stat-value text-danger" id="stat-overdue">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Critical</div>
+                        <div class="stat-value text-danger" id="stat-critical">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Recurring</div>
+                        <div class="stat-value" id="stat-recurring">0</div>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Issues</h3><a href="issues.html"
+                                class="btn btn-sm btn-outline">Manage All</a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ref</th>
+                                        <th>Title</th>
+                                        <th>Reporter</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>SLA</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Worker Workload</h3>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Worker</th>
+                                        <th>Spec</th>
+                                        <th>Active</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="workload-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/issues.js"></script>
+    <script src="../js/analytics.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>AdminModule.initDashboard();</script>
+</body>
+
+</html>

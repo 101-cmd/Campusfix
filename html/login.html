@@ -1,0 +1,60 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">CampusFix</div>
+                <p class="auth-subtitle">Sign in to your account</p>
+            </div>
+            <div class="demo-notice">
+                <strong>Demo Accounts:</strong><br>
+                User: student@campusfix.demo<br>
+                Worker: worker@campusfix.demo<br>
+                Admin: admin@campusfix.demo<br>
+                Password: password123
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%" style="align-self: center;">Login</button>
+            </form>
+            <div class="auth-footer">Don't have an account? <a href="register.html">Register</a></div>
+        </div>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('login-form').onsubmit = (e) => {
+            e.preventDefault();
+            try {
+                const user = Auth.login(document.getElementById('email').value, document.getElementById('password').value);
+                Utils.toast('Login successful!', 'success');
+                setTimeout(() => {
+                    if (user.role === 'ADMIN') window.location.href = '/admin/dashboard.html';
+                    else if (user.role === 'WORKER') window.location.href = '/worker/dashboard.html';
+                    else window.location.href = '/user/dashboard.html';
+                }, 500);
+            } catch (err) { Utils.toast(err.message, 'error'); }
+        };
+    </script>
+</body>
+
+</html>

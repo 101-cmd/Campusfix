@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card" style="max-width:600px;">
+                    <h3 class="card-title" style="margin-bottom:1rem;">Add Category</h3>
+                    <form id="add-cat-form" style="display:flex;gap:1rem;align-items:end;">
+                        <div class="form-group" style="flex:1;margin:0"><input type="text" class="form-control"
+                                id="new-cat" placeholder="Category name" required></div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                    <h3 class="card-title" style="margin:1.5rem 0 1rem;">Existing Categories</h3>
+                    <div id="cat-list"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>AdminModule.initCategories();</script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - CampusFix</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar"></aside>
+        <main class="main-content">
+            <header class="topbar" id="topbar"></header>
+            <div class="content">
+                <div class="card" style="max-width:600px;">
+                    <h3 class="card-title" style="margin-bottom:1.5rem;">My Profile</h3>
+                    <p><strong>Name:</strong> <span id="profile-name"></span></p>
+                    <p><strong>Email:</strong> <span id="profile-email"></span></p>
+                    <p><strong>Specialization:</strong> <span id="profile-spec"></span></p>
+                    <p><strong>Status:</strong> <span id="profile-status"></span></p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/worker.js"></script>
+    <script>WorkerModule.initProfile();</script>
+</body>
+
+</html>

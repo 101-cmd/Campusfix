@@ -16,7 +16,38 @@ const Issues = {
   },
 
   getById(id) {
-    return Storage.getIssues().find((i) => i.id === id);
+    const issue = Storage.getIssues().find((i) => i.id === id);
+    if (!issue) return null;
+
+    const createdAt = issue.createdAt || Date.now();
+    return {
+      status: "SUBMITTED",
+      priority: "LOW",
+      assignedWorkerId: null,
+      attachments: [],
+      progressNotes: [],
+      verification: null,
+      rejectionReason: null,
+      ...issue,
+      status: issue.status || "SUBMITTED",
+      priority: issue.priority || "LOW",
+      createdAt,
+      history:
+        Array.isArray(issue.history) && issue.history.length
+          ? issue.history
+          : [
+              {
+                status: issue.status || "SUBMITTED",
+                date: createdAt,
+                note: "Issue submitted.",
+                by: issue.reporterId,
+              },
+            ],
+      progressNotes: Array.isArray(issue.progressNotes)
+        ? issue.progressNotes
+        : [],
+      attachments: Array.isArray(issue.attachments) ? issue.attachments : [],
+    };
   },
 
   create(data, reporterId) {

@@ -270,6 +270,67 @@ button {
     gap: 0.5rem;
 }
 
+/* Profile detail cards */
+.content > .card[style*="max-width:600px"] {
+    padding: 1.75rem;
+    border-radius: 10px;
+}
+
+.content > .card[style*="max-width:600px"] .card-title {
+    margin: -1.75rem -1.75rem 1.25rem;
+    padding: 1rem 1.75rem;
+    color: #fff;
+    background: var(--primary);
+    border-bottom: 1px solid var(--primary-dark);
+    font-size: 1.2rem;
+}
+
+.content > .card[style*="max-width:600px"] p {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--bg-secondary);
+}
+
+.content > .card[style*="max-width:600px"] p:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.content > .card[style*="max-width:600px"] p strong {
+    flex: 0 0 155px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.content > .card[style*="max-width:600px"] p span {
+    color: var(--text);
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .content > .card[style*="max-width:600px"] {
+        padding: 1.25rem;
+    }
+
+    .content > .card[style*="max-width:600px"] .card-title {
+        margin: -1.25rem -1.25rem 1.25rem;
+        padding: 1rem 1.25rem;
+    }
+
+    .content > .card[style*="max-width:600px"] p {
+        display: block;
+    }
+
+    .content > .card[style*="max-width:600px"] p strong {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+}
+
 .stat-value {
     font-size: 1.75rem;
     font-weight: 700;

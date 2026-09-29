@@ -40,14 +40,3 @@
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
-
-.demo-notice {
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-    color: #1e40af;
-    padding: 0.75rem;
-    border-radius: var(--radius);
-    font-size: 0.8rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}

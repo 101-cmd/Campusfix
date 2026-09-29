@@ -250,9 +250,24 @@ button {
 }
 
 .stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     font-size: 0.875rem;
     color: var(--text-secondary);
     margin-bottom: 0.5rem;
+}
+
+.stat-label .material-symbols-outlined,
+.card-title .material-symbols-outlined {
+    color: var(--primary);
+    font-size: 1.15rem;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .stat-value {
